@@ -1,0 +1,42 @@
+import React, { useState } from "react";
+import Data from "../Search-Fılter/Data-Search.json";
+
+function Search() {
+  const [searchTerm, setSearchTerm] = useState("");
+  return (
+    <div className="search-fılter container">
+      <h1>Kurtlar Vadisi Konsey Üyeleri</h1>
+      <div className="inputContainer">
+        <input
+          className="search"
+          type="text"
+          placeholder="Konsey Üyesi Giriniz..."
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+      <div className="dataContainer">
+        {Data.filter((val) => {
+          if (searchTerm === "") {
+            return val;
+          } else if (
+            val.title
+              .toLocaleLowerCase()
+              .includes(searchTerm.toLocaleLowerCase())
+          ) {
+            return val;
+          }
+        }).map((val) => {
+          return (
+            <div className="data" key={val.id}>
+              <img src={val.image} alt="" />
+              <h3>{val.title}</h3>
+              <p>{val.Description}</p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+export default Search;
